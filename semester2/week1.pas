@@ -8,6 +8,7 @@ type toefl=record
      listening,reading,structure:word;
      total:Real;
 end;//syntax deklasrasi record
+
 larik_toefl=array[1..max] of toefl;//syntax deklarasi larik record
 
 var peserta:larik_toefl;//deklarasi variabel

@@ -1,4 +1,4 @@
-program review_record;
+program testoefl;
 uses crt;
 
 const max=10;
@@ -8,7 +8,6 @@ type toefl=record
      listening,reading,structure:word;
      total:Real;
 end;//syntax deklasrasi record
-
 larik_toefl=array[1..max] of toefl;//syntax deklarasi larik record
 
 var peserta,Y:larik_toefl;//deklarasi variabel
@@ -351,7 +350,7 @@ repeat
   writeln('11. urutkan data berdasarkan skor toefl');//mengurutkan methode buble
 
   writeln('0. Selesai');
-  Write('pilih menu 0-7 : ');ReadLn(pil);
+  Write('pilih menu 0-11 : ');ReadLn(pil);
   case pil of
     1: if n=max then WriteLn('kelas sudah penuh ') else tambah_pst(peserta);
     2: if n=0 then WriteLn('kelas masih kosong') else cetak_pst(peserta);
