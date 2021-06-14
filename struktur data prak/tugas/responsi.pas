@@ -156,15 +156,26 @@ begin
 end;
  
 procedure cetak_layanan(var P:larikbioskop;F:larikfilm);
+var j,k:Integer;
  begin
-   writeln('DAFTAR PEMBELI YANG SUDAH MEMBELI TIKET');
-   writeln('BIOSKOP');
-   writeln('---------------------------------------');
-   writeln('No  Film      Nama   Kursi');
-   writeln('---------------------------------------');
-   for i:=1 to jumplay do
-   writeln(i:2,'  ',F[i].nama:4,'  ',P[i].nama:4,'  ',P[i].kursi:3);
-   writeln('---------------------------------------');
+   writeln('DAFTAR LAYANAN BIOSKOP HARI INI ');
+   WriteLn;
+   for j:=1 to 3 do
+     begin
+          WriteLn('FIlM ',F[j].nama,' |  ',F[j].jam_tayang);
+          writeln('---------------------------------------');
+          writeln('| No  kode      Nama   Kursi          |');
+          writeln('---------------------------------------');
+          k:=1;
+          for i:=1 to jumplay do
+            if F[j].nama = P[i].film then
+            begin
+              WriteLn('| ',k,'   ',P[i].kode_pelayanan,'     ',P[i].nama,'      ',P[i].kursi,'              |');
+              inc(k);
+            end;
+          writeln('---------------------------------------');
+          WriteLn;
+     end;
 end;
  
 procedure layanan_prioritas(var A:rec_antrian;var P:larikbioskop;var F:larikfilm);
