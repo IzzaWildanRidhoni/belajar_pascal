@@ -130,6 +130,7 @@ begin
         ulangkursi:
         Write('masukkan no kursi < no 1 - 100 >   :  ');ReadLn(kursi);
 
+        // cek kursi berdasarkan tayangan film
         // cek apakah kursi sdah dipesan di film ini ? misal avenger
           for j:=1 to 3 do
             begin
@@ -141,18 +142,15 @@ begin
                   begin
                     WriteLn('Kursi sudah dipesan , orang lain');goto ulangkursi;
                   end;
+                  // cek tidak lebih dari seratus
+                  if kursi > 100 then begin
+                    WriteLn('nomer kursi tidak boleh lebih dari 100 ');goto ulangkursi;
+                  end;
                 end;
               end;
             end;
-            // if kursi > 100 then begin writeln('kursi tidak tersedia , hanya tersedia no  1-100 ');goto ulangkursi; end;
-            // // cek kursi
-            // for i:=1 to jumplay do
-            //   begin
-            //     if kursi = P[i].kursi then begin
-            //      WriteLn('Kursi sudah dipesan , orang lain');goto ulangkursi;
-            //     end; 
-            //   end;
-
+            
+        // jika valid ta,mbahkan 
         P[jumplay].kursi:=kursi;
         WriteLn;
         WriteLn('pelayanan  berhasil  ;) ');
@@ -195,7 +193,7 @@ var j,k:Integer;
 end;
  
 procedure layanan_prioritas(var A:rec_antrian;var P:larikbioskop;var F:larikfilm);
-var kode,nm_film:String;ada,cek:Boolean;pos,pos2,kursi,nomer:Integer;
+var kode,nm_film:String;ada,cek:Boolean;pos,pos2,kursi,nomer,j:Integer;
 label ulang,ulangfilm,ulangkursi,ulangno;
 begin
     WriteLn;
@@ -262,14 +260,27 @@ begin
         WriteLn('film akan tayang jam   :  ',F[pos].jam_tayang);
         ulangkursi:
         Write('masukkan no kursi < no 1 - 100 >   :  ');ReadLn(kursi);
-            if kursi > 100 then begin writeln('kursi tidak tersedia , hanya tersedia no  1-100 ');goto ulangkursi; end;
-            // cek kursi
-            for i:=1 to jumplay do
+        
+         // cek kursi berdasarkan tayangan film
+        // cek apakah kursi sdah dipesan di film ini ? misal avenger
+          for j:=1 to 3 do
+            begin
+              for i:=1 to jumplay do
               begin
-                if kursi = P[i].kursi then begin
-                 WriteLn('Kursi sudah dipesan , orang lain');goto ulangkursi;
-                end; 
+                if  nm_film = P[i].film then
+                begin
+                  if kursi = P[i].kursi then
+                  begin
+                    WriteLn('Kursi sudah dipesan , orang lain');goto ulangkursi;
+                  end;
+                  // cek tidak lebih dari seratus
+                  if kursi > 100 then begin
+                    WriteLn('nomer kursi tidak boleh lebih dari 100 ');goto ulangkursi;
+                  end;
+                end;
               end;
+            end;
+            
         P[jumplay].kursi:=kursi;
         WriteLn;
         WriteLn('pelayanan  berhasil  ;) ');
