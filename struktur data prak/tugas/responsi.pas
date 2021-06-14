@@ -98,6 +98,16 @@ begin
     
     // masuk ke  pelayanan tiket bioskop
     Write('masukkan  kode pelayanan  : ');ReadLn(kode);
+    for i:=1 to jumplay do
+      begin
+        if P[i].kode_pelayanan = kode then  
+        begin
+          WriteLn('kode salah , ulangi ');
+          goto ulang; 
+        end;
+      end;
+    Inc(jumplay);
+ 
     P[jumplay].kode_pelayanan:=kode; 
     Write('masukkan nama lengkap        : ');ReadLn(P[jumplay].nama);
     ulangfilm:
@@ -158,27 +168,41 @@ procedure cetak_layanan(var P:larikbioskop;F:larikfilm);
 end;
  
 procedure layanan_prioritas(var A:rec_antrian;var P:larikbioskop;var F:larikfilm);
-var kode,nm_film:string;prio,pos,kursi:integer;ada:boolean;
-label ulang,ulangfilm,ulangkursi;
+var kode,nm_film:String;ada,cek:Boolean;pos,pos2,kursi,nomer:Integer;
+label ulang,ulangfilm,ulangkursi,ulangno;
 begin
-  writeln('Selamat datang di layanan prioritas Bioskop');
-  write('masukkan nomor antrian pembeli yang diprioritaskan : ');readln(prio);
-  for i:=A.front to A.rear do
-  begin if A.no_antri[i]=prio then begin ada:=true;pos:=i;end;end;
-  if not ada then writeln('Nomor antrian',prio,' tidak ada di daftar penumpang yang sedang antri saat ini')
-  else
-  begin
-  WriteLn;
-    WriteLn('PELAYANAN TIKET BIOSKOP ');
+    WriteLn;
+    cek:=false;
+    WriteLn('Layanan Prioritas : ');
     WriteLn('-------------------------------------------');
-    WriteLn('nomor antrian  ',prio);
-    WriteLn('-------------------------------------------');
-    for i:=prio to A.rear do
+    ulangno:
+    Write('masukkan nomer  antrian yang diprioritaskan :  ');ReadLn(nomer);
+    // validasi  nomer antri
+    for i:=A.front to A.rear do
+      begin
+        if nomer = A.no_antri[i] then
+        begin
+          cek:=true;
+          pos2:=i;
+        end;
+      end;
+      if not cek then 
+      begin
+        WriteLn('data tidak ditemukan , ulangi !');
+        goto ulangno;
+      end;
+
+      // hapus no antri  yang ada di rec antri
+      for i:=pos2 to A.rear-1 do
       begin
         A.no_antri[i]:=A.no_antri[i+1];
       end;
       Dec(A.rear);
+    
+ 
     ulang:
+    
+    // masuk ke  pelayanan tiket bioskop
     Write('masukkan  kode pelayanan  : ');ReadLn(kode);
     for i:=1 to jumplay do
       begin
@@ -194,6 +218,8 @@ begin
     Write('masukkan nama lengkap        : ');ReadLn(P[jumplay].nama);
     ulangfilm:
     Write('nama film yang akan ditonton  : ');ReadLn(nm_film);
+ 
+    // cek apakah ada film di rec_film
     for i:=1 to 3 do
     begin
       if nm_film = F[i].nama then
@@ -221,7 +247,7 @@ begin
         WriteLn;
         WriteLn('pelayanan  berhasil  ;) ');
     end;
- end; 
+ 
 end;
  
 procedure keluar_antrian(var A:rec_antrian);
@@ -237,8 +263,8 @@ begin
   if not ada then writeln('Nomor antrian ', nom,' tidak ada didalam Data')
   else
   begin
-    writeln('Nomor antrian ',nom,' ada diposisi',pos);
-    writeln('Yakin akan keluar dari antrian<y/t>?');readln(ya);
+    writeln('Nomor antrian ',nom,' ada diposisi ',pos);
+    writeln('Yakin akan keluar dari antrian <y/t>?');readln(ya);
     if (ya='Y')or(ya='y')then
     begin
         writeln('Terimakasih, Silahkan datang lagi');
