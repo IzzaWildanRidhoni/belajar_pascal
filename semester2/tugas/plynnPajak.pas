@@ -56,9 +56,8 @@ begin
   if kurang = 0 then WriteLn('sekarang yang akan dilayani adalah anda')
   else  WriteLn('sekarang yang akan dilayani adalah antrian nomer ',A.no_antri[A.front],' kurang ',kurang,' antrian lagi');
   
-  Inc(A.rear);  //menambahkan data rear
-  // menambahkan nomer antri ke ...= nomer  antri yang diincrementkan tadi
-  A.no_antri[A.rear]:=nom_antri;  
+  Inc(A.rear);  //membuat ruang di posisi top+1
+  A.no_antri[A.rear]:=nom_antri;  //ruang yang baru diisi dengan nomer antri baru 
   WriteLn('mohon bersabar menunggu :)');
 end;
 
@@ -87,16 +86,16 @@ begin
     // masuk ke  pelayanan pajak
     Write('masukkan  kode pelayanan  : ');ReadLn(kode);
     // validasi = mengecek apakah  kode baru  sama dengan kode_pelayanan  lama  yang sudah diinputkan? 
+    //jika ada  maka ulangi sampai kode itu unix 
     for i:=1 to jumplay do
       begin
-        //jika ada  maka ulangi sampai kode itu unix 
         if P[i].kode_pelayanan = kode then  
         begin
           WriteLn('kode salah , ulangi ');
           goto ulang; 
         end;
       end;
-    // kode sudah valid / kode sudah unix maka tambahkan jumlah playanan (jumplay)
+    // kode sudah valid / kode sudah unix maka tambah 1  jumlah playanan (jumplay)
     Inc(jumplay);
 
     // memulai penginputan data pajak
@@ -169,7 +168,7 @@ begin
     WriteLn('------------------------------------');
 		writeln('Nomor Antri  =  ',A.no_antri[pos],' ');
     WriteLn('------------------------------------');
-	//menggeser posisi yang sedang antri dibelakang antrian prioritas
+	//menggeser antrian dibelkanag antrian prioritas  dan ditimpa  ditimpa
 	for i:= pos to A.rear-1 do
 		A.no_antri[i] := A.no_antri[i+1];
 		dec(A.rear);
