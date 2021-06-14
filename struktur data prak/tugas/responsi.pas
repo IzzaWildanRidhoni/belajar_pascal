@@ -80,7 +80,7 @@ begin
 end;
  
 procedure layanan_bioskop(var A:rec_antrian;var P:larikbioskop;var F:larikFilm);
-var kode,nm_film:String;ada:Boolean;pos,kursi:Integer;
+var kode,nm_film:String;ada:Boolean;pos,kursi,j:Integer;
 label ulang,ulangfilm,ulangkursi;
 begin
     WriteLn;
@@ -129,14 +129,30 @@ begin
         WriteLn('film akan tayang jam   :  ',F[pos].jam_tayang);
         ulangkursi:
         Write('masukkan no kursi < no 1 - 100 >   :  ');ReadLn(kursi);
-            if kursi > 100 then begin writeln('kursi tidak tersedia , hanya tersedia no  1-100 ');goto ulangkursi; end;
-            // cek kursi
-            for i:=1 to jumplay do
+
+        // cek apakah kursi sdah dipesan di film ini ? misal avenger
+          for j:=1 to 3 do
+            begin
+              for i:=1 to jumplay do
               begin
-                if kursi = P[i].kursi then begin
-                 WriteLn('Kursi sudah dipesan , orang lain');goto ulangkursi;
-                end; 
+                if  nm_film = P[i].film then
+                begin
+                  if kursi = P[i].kursi then
+                  begin
+                    WriteLn('Kursi sudah dipesan , orang lain');goto ulangkursi;
+                  end;
+                end;
               end;
+            end;
+            // if kursi > 100 then begin writeln('kursi tidak tersedia , hanya tersedia no  1-100 ');goto ulangkursi; end;
+            // // cek kursi
+            // for i:=1 to jumplay do
+            //   begin
+            //     if kursi = P[i].kursi then begin
+            //      WriteLn('Kursi sudah dipesan , orang lain');goto ulangkursi;
+            //     end; 
+            //   end;
+
         P[jumplay].kursi:=kursi;
         WriteLn;
         WriteLn('pelayanan  berhasil  ;) ');
@@ -162,7 +178,7 @@ var j,k:Integer;
    WriteLn;
    for j:=1 to 3 do
      begin
-          WriteLn('FIlM ',F[j].nama,' |  ',F[j].jam_tayang);
+          WriteLn('FILM ',F[j].nama,' |  ',F[j].jam_tayang);
           writeln('---------------------------------------');
           writeln('| No  kode      Nama   Kursi          |');
           writeln('---------------------------------------');
