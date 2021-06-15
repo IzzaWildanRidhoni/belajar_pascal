@@ -130,6 +130,7 @@ begin
         ulangkursi:
         Write('masukkan no kursi < no 1 - 100 >   :  ');ReadLn(kursi);
 
+        
         // cek kursi berdasarkan tayangan film
         // cek apakah kursi sdah dipesan di film ini ? misal avenger
           for j:=1 to 3 do
@@ -354,7 +355,7 @@ begin
         2:if isFull(antrian) then WriteLn('maaf antrian sudah full , hanya menerima  ',max,' pelayanan saja;)') else ambil_antrian(antrian); 
         3:if isEmpty(antrian) then WriteLn('sedang tidak ada antrian ') else layanan_bioskop(antrian,bioskop,film);
         4:if IsEmpty(antrian)then writeln('Sedang tidak ada antrian')else cetak_antrian(antrian);
-        5:if jumplay=0 then writeln('Belum ada penumpang yang sdh dilayani')else cetak_layanan(bioskop,film);
+        5:if jumplay=0 then writeln('Belum ada yang dilayani')else cetak_layanan(bioskop,film);
         6:if IsEmpty(antrian)then writeln('Sedang tidak ada antrian')else layanan_prioritas(antrian,bioskop,film);
         7:if IsEmpty(antrian)then writeln('Sedang tidak ada antrian')else keluar_antrian(antrian);
         0:WriteLn('Terimakasih Karena Telah Menggunakan Program Kami:)') else WriteLn('anda salah pilih menu ');
