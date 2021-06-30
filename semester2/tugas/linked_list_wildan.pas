@@ -1,3 +1,10 @@
+{
+   nama : izza wildan ridhoni
+   nim  : 201057007
+
+   nama : yunika putri oktavia
+   nim  : 201054005
+}
 program  pelayananPajakLinkedlist;
 uses crt;
 
